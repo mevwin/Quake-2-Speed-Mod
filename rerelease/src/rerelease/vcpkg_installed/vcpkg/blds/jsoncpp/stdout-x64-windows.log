@@ -1,0 +1,9 @@
+-- Using cached open-source-parsers-jsoncpp-9059f5cad030ba11d37818847443a53918c327b1.tar.gz.
+-- Extracting source C:/Users/vielg/AppData/Local/vcpkg/downloads/open-source-parsers-jsoncpp-9059f5cad030ba11d37818847443a53918c327b1.tar.gz
+-- Using source at C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/blds/jsoncpp/src/3918c327b1-034a82149a.clean
+-- Found external ninja('1.11.0').
+-- Configuring x64-windows
+-- Building x64-windows-dbg
+-- Building x64-windows-rel
+-- Installing: C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/pkgs/jsoncpp_x64-windows/share/jsoncpp/copyright
+-- Performing post-build validation

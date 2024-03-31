@@ -1,0 +1,16 @@
+-- Using cached fmtlib-fmt-7bdf0628b1276379886c7f6dda2cef2b3b374f0b.tar.gz.
+-- Extracting source C:/Users/vielg/AppData/Local/vcpkg/downloads/fmtlib-fmt-7bdf0628b1276379886c7f6dda2cef2b3b374f0b.tar.gz
+-- Applying patch fix-warning4189.patch
+-- Using source at C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/blds/fmt/src/2b3b374f0b-8ea71ee8ea.clean
+-- Found external ninja('1.11.0').
+-- Configuring x64-windows
+-- Building x64-windows-dbg
+-- Building x64-windows-rel
+-- Installing: C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/pkgs/fmt_x64-windows/share/fmt/copyright
+-- Fixing pkgconfig file: C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/pkgs/fmt_x64-windows/lib/pkgconfig/fmt.pc
+-- Using cached mingw-w64-x86_64-pkgconf-1~2.1.0-1-any.pkg.tar.zst.
+-- Using cached msys2-msys2-runtime-3.4.9-3-x86_64.pkg.tar.zst.
+-- Using msys root at C:/Users/vielg/AppData/Local/vcpkg/downloads/tools/msys2/023cdb3ca06f77f2
+-- Fixing pkgconfig file: C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/pkgs/fmt_x64-windows/debug/lib/pkgconfig/fmt.pc
+-- Installing: C:/Program Files (x86)/Steam/steamapps/common/Quake 2/rerelease/modding/src/rerelease/vcpkg_installed/vcpkg/pkgs/fmt_x64-windows/share/fmt/usage
+-- Performing post-build validation
