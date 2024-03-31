@@ -1341,15 +1341,11 @@ void Blaster_Fire(edict_t *ent, const vec3_t &g_offset, int damage, bool hyper, 
 
 	fire_blaster(ent, start, dir, damage, speed, effect, hyper ? MOD_HYPERBLASTER : MOD_BLASTER);
 
-	start[0] += start[0] * 10;
-	start[1] += start[1] * 10;
-	start[2] += start[2] * 10;
+	speed = speed / 2;
 
 	fire_blaster(ent, start, dir, damage, speed, effect, hyper ? MOD_HYPERBLASTER : MOD_BLASTER);
 
-	start[0] -= start[0] * 20;
-	start[1] -= start[1] * 20;
-	start[2] -= start[2] * 20;
+	speed = speed / 2;
 
 	fire_blaster(ent, start, dir, damage, speed, effect, hyper ? MOD_HYPERBLASTER : MOD_BLASTER);
 
