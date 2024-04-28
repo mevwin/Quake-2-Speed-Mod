@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|solutionrelative:game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|solutionrelative:g_weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_utils.cpp||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|solutionrelative:g_utils.cpp||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\p_weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{C994B5EA-3058-403C-953D-3673C2C4D64E}|game.vcxproj|solutionrelative:p_weapon.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -31,15 +43,51 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "game.h",
+              "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\game.h",
+              "RelativeDocumentMoniker": "game.h",
+              "ToolTip": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\game.h",
+              "RelativeToolTip": "game.h",
+              "ViewState": "AQIAAPsGAAAAAAAAAAAAAPsGAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-07T19:56:01.345Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "g_weapon.cpp",
+              "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_weapon.cpp",
+              "RelativeDocumentMoniker": "g_weapon.cpp",
+              "ToolTip": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_weapon.cpp",
+              "RelativeToolTip": "g_weapon.cpp",
+              "ViewState": "AQIAAHQBAAAAAAAAAAAqwIABAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-07T19:32:42.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "g_utils.cpp",
+              "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_utils.cpp",
+              "RelativeDocumentMoniker": "g_utils.cpp",
+              "ToolTip": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\g_utils.cpp",
+              "RelativeToolTip": "g_utils.cpp",
+              "ViewState": "AQIAAGwBAAAAAAAAAAAAAGYBAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-07T19:37:17.017Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "p_weapon.cpp",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\p_weapon.cpp",
               "RelativeDocumentMoniker": "p_weapon.cpp",
               "ToolTip": "C:\\Users\\vielg\\quake2-full\\rerelease\\src\\rerelease\\p_weapon.cpp",
               "RelativeToolTip": "p_weapon.cpp",
-              "ViewState": "AQIAACcFAAAAAAAAAAAmwEMFAAAAAAAA",
+              "ViewState": "AQIAACcFAAAAAAAAAAAmwD8FAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-31T20:25:41.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-31T20:25:41.696Z"
             }
           ]
         }

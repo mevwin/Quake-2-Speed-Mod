@@ -352,10 +352,11 @@ Fires a single blaster bolt.  Used by the blaster and hyper blaster.
 */
 TOUCH(blaster_touch) (edict_t *self, edict_t *other, const trace_t &tr, bool other_touching_self) -> void
 {
+	// Null is a number zero, accessing memory address 0 causes a segmentation fault, accessing memory before or after given segment
 	if (other == self->owner)
 		return;
 
-	if (tr.surface && (tr.surface->flags & SURF_SKY))
+	if (tr.surface && (tr.surface->flags & SURF_SKY))// shooting the sky
 	{
 		G_FreeEdict(self);
 		return;
@@ -373,7 +374,7 @@ TOUCH(blaster_touch) (edict_t *self, edict_t *other, const trace_t &tr, bool oth
 		gi.WriteByte( ( self->style != MOD_BLUEBLASTER ) ? TE_BLASTER : TE_BLUEHYPERBLASTER );
 		gi.WritePosition(self->s.origin);
 		gi.WriteDir(tr.plane.normal);
-		gi.multicast(self->s.origin, MULTICAST_PHS, false);
+		gi.multicast(self->s.origin, MULTICAST_PHS, false);// everyone can see given effects
 	}
 
 	G_FreeEdict(self);
@@ -384,11 +385,14 @@ void fire_blaster(edict_t *self, const vec3_t &start, const vec3_t &dir, int dam
 	edict_t *bolt;
 	trace_t	 tr;
 
-	bolt = G_Spawn();
+	bolt = G_Spawn(); // finds an entity in the massive entity list that's not in use and returns a pointer to it
+	if (!bolt) {// added a case where null pointer is returned
+		return;
+	}
 	bolt->svflags = SVF_PROJECTILE;
 	bolt->s.origin = start;
 	bolt->s.old_origin = start;
-	bolt->s.angles = vectoangles(dir);
+	bolt->s.angles = vectoangles(dir); // turns a vector into yaw, pitch, and roll
 	bolt->velocity = dir * speed;
 	bolt->movetype = MOVETYPE_FLYMISSILE;
 	bolt->clipmask = MASK_PROJECTILE;
@@ -401,7 +405,7 @@ void fire_blaster(edict_t *self, const vec3_t &start, const vec3_t &dir, int dam
 	bolt->s.modelindex = gi.modelindex("models/objects/laser/tris.md2");
 	bolt->s.sound = gi.soundindex("misc/lasfly.wav");
 	bolt->owner = self;
-	bolt->touch = blaster_touch;
+	bolt->touch = blaster_touch; // not a function call, will return the function's memory address
 	bolt->nextthink = level.time + 2_sec;
 	bolt->think = G_FreeEdict;
 	bolt->dmg = damage;

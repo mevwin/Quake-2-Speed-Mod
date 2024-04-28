@@ -899,6 +899,53 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+void Cmd_TRight_f(edict_t* ent)
+{
+	vec3_t dir, right, vel;
+	double speed;
+
+	if ((!ent) || (!ent->client)) return;
+	
+	//gi.bprintf(PRINT_HIGH, "initial: x %f, y %f, z %f\n", ent->client->v_angle[0], ent->client->v_angle[1], ent->client->v_angle[2]);
+	//AngleVectors(ent->client->v_angle, NULL, right, NULL);
+	//fire_bfg(ent, ent->s.origin, right, 100, 100, 25);
+	//VectorSet(ent->client->v_angle, ent->client->v_angle[0], ent->client->v_angle[1] - 90, ent->client->v_angle[2]);
+	//gi.bprintf(PRINT_HIGH, "initial: roll %f, pitch %f, yaw %f\n", ent->s.angles[ROLL], ent->s.angles[PITCH], ent->s.angles[YAW]);
+	//gi.bprintf(PRINT_HIGH, "turned right: %f, %f, %f\n", ent->client->v_angle[0], ent->client->v_angle[1], ent->client->v_angle[2]);
+
+	
+	ent->client->ps.viewangles[YAW] = ent->client->ps.viewangles[YAW] - 90;
+	ent->client->v_angle[YAW] = ent->client->v_angle[YAW] - 90;
+
+	VectorCopy(ent->velocity, vel);
+	speed = sqrt( pow(vel[0], 2) + pow(vel[1], 2) + pow(vel[2], 2));
+	gi.bprintf(PRINT_HIGH, "vel: x %f y %f z %f\n", vel[0], vel[1], vel[2]);
+	gi.bprintf(PRINT_HIGH, "speed: %f\n", speed);
+}
+
+void Cmd_Teleport_f(edict_t* ent)
+{
+	trace_t	tr;
+	vec3_t start, end, dir, forward;
+
+	if ((!ent) || (!ent->client)) return;
+
+	AngleVectors(ent->client->v_angle, forward, NULL, NULL);
+	VectorCopy(ent->s.origin, start);
+	VectorCopy(forward, dir);
+	VectorNormalize(dir);
+	
+	//gi.bprintf(PRINT_HIGH, "initial: x %f, y %f, z %f\nDirection: %f, %f, %f\n", start[0], start[1], start[2], dir[0], dir[1], dir[2]);
+
+	VectorSet(end, 200*dir[0] + start[0], 200*dir[1] + start[1], 100 * dir[2] + start[2]);
+	tr = gi.trace(start, NULL, NULL, end, ent, MASK_PLAYERSOLID);
+	if (tr.fraction < 1.0)
+	{
+		VectorSet(end, start[0], start[1], start[2]);
+	}
+	VectorSet(ent->s.origin, end[0], end[1], end[2]);
+	//gi.bprintf(PRINT_HIGH, "final: x %f, y %f, z %f\nDirection: %f, %f, %f\n", end[0], end[1], end[2], dir[0], dir[1], dir[2]);
+}
 
 /*
 =================
@@ -912,7 +959,7 @@ void ClientCommand (edict_t *ent)
 	if (!ent->client)
 		return;		// not fully in game yet
 
-	cmd = gi.argv(0);
+	cmd = gi.argv(0); //cmd line argument 1 (game name)
 
 	if (Q_stricmp (cmd, "players") == 0)
 	{
@@ -937,6 +984,16 @@ void ClientCommand (edict_t *ent)
 	if (Q_stricmp (cmd, "help") == 0)
 	{
 		Cmd_Help_f (ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "turnright") == 0)
+	{
+		Cmd_TRight_f(ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "teleport") == 0)
+	{
+		Cmd_Teleport_f(ent);
 		return;
 	}
 

@@ -1323,6 +1323,7 @@ void ClientBegin (edict_t *ent)
 		// ClientConnect() time
 		G_InitEdict (ent);
 		ent->classname = "player";
+
 		InitClientResp (ent->client);
 		PutClientInServer (ent);
 	}
@@ -1639,7 +1640,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		for (i=0 ; i<3 ; i++)
 		{
 			ent->s.origin[i] = pm.s.origin[i]*0.125;
-			ent->velocity[i] = pm.s.velocity[i]*0.125;
+			ent->velocity[i] = pm.s.velocity[i]*0.1264;
 		}
 
 		VectorCopy (pm.mins, ent->mins);

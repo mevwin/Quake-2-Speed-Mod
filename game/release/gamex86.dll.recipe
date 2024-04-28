@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Program Files (x86)\Steam\steamapps\common\Quake 2\rerelease\modding\gamex86.dll</FullPath>
+      <FullPath>C:\Program Files (x86)\Steam\steamapps\common\Quake 2\modding\gamex86.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

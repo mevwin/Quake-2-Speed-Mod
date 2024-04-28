@@ -236,9 +236,14 @@ void DeathmatchScoreboardMessage (edict_t *ent, edict_t *killer)
 		}
 
 		// send the layout
+		vec3_t vel;
+		float speed;
+		VectorCopy(cl->oldvelocity, vel);
+		speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2) + pow(vel[2], 2));
+
 		Com_sprintf (entry, sizeof(entry),
-			"client %i %i %i %i %i %i ",
-			x, y, sorted[i], cl->resp.score, cl->ping, (level.framenum - cl->resp.enterframe)/600);
+			"client %i %i %i %i %f %i ",
+			x, y, sorted[i], cl->resp.score, speed, (level.framenum - cl->resp.enterframe)/600);
 		j = strlen(entry);
 		if (stringlength + j > 1024)
 			break;
@@ -314,7 +319,7 @@ void HelpComputer (edict_t *ent)
 		sk = "hard+";
 
 	// send the layout
-	Com_sprintf (string, sizeof(string),
+	Com_sprintf (string, sizeof(string), //320 x 200 screen rez
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name

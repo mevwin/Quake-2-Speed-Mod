@@ -554,13 +554,13 @@ void P_FallingDamage (edict_t *ent)
 				ent->s.event = EV_FALL;
 		}
 		ent->pain_debounce_time = level.time;	// no normal pain sound
-		damage = (delta-30)/2;
-		if (damage < 1)
-			damage = 1;
+		//damage = (delta-30)/2;
+		//if (damage < 1)
+			//damage = 1;
 		VectorSet (dir, 0, 0, 1);
 
-		if (!deathmatch->value || !((int)dmflags->value & DF_NO_FALLING) )
-			T_Damage (ent, world, world, dir, ent->s.origin, vec3_origin, damage, 0, 0, MOD_FALLING);
+		//if (!deathmatch->value || !((int)dmflags->value & DF_NO_FALLING) )
+			//T_Damage (ent, world, world, dir, ent->s.origin, vec3_origin, damage, 0, 0, MOD_FALLING);
 	}
 	else
 	{

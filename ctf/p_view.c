@@ -504,6 +504,9 @@ void P_FallingDamage (edict_t *ent)
 	int		damage;
 	vec3_t	dir;
 
+
+	return;
+
 	if (ent->s.modelindex != 255)
 		return;		// not in the player model
 

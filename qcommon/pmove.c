@@ -51,7 +51,7 @@ pml_t		pml;
 
 // movement parameters
 float	pm_stopspeed = 100;
-float	pm_maxspeed = 300;
+float	pm_maxspeed = 500;
 float	pm_duckspeed = 100;
 float	pm_accelerate = 10;
 float	pm_airaccelerate = 0;
@@ -366,7 +366,7 @@ void PM_Friction (void)
 	{
 		friction = pm_friction;
 		control = speed < pm_stopspeed ? pm_stopspeed : speed;
-		drop += control*friction*pml.frametime;
+		drop += control*friction*pml.frametime/1.4;
 	}
 
 // apply water friction

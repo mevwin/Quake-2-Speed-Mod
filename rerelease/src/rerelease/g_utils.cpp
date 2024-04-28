@@ -350,7 +350,7 @@ edict_t *G_Spawn()
 	edict_t *e;
 
 	e = &g_edicts[game.maxclients + 1];
-	for (i = game.maxclients + 1; i < globals.num_edicts; i++, e++)
+	for (i = game.maxclients + 1; i < globals.num_edicts; i++, e++)//increments by one size of its type
 	{
 		// the first couple seconds of server time can involve a lot of
 		// freeing and allocating, so relax the replacement policy

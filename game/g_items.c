@@ -103,6 +103,9 @@ gitem_t	*FindItem (char *pickup_name)
 	gitem_t	*it;
 
 	it = itemlist;
+
+	//gi.bprintf(PRINT_HIGH, "searching for item %s.\n", pickup_name);
+
 	for (i=0 ; i<game.num_items ; i++, it++)
 	{
 		if (!it->pickup_name)

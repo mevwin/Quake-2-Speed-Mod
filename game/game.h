@@ -86,8 +86,8 @@ struct gclient_s
 struct edict_s
 {
 	entity_state_t	s;
-	struct gclient_s	*client;
-	qboolean	inuse;
+	struct gclient_s	*client;    // C does not have references, everything is passed to function by value
+	qboolean	inuse;				// entities currently in use
 	int			linkcount;
 
 	// FIXME: move these fields to a server private sv_entity_t
@@ -101,7 +101,7 @@ struct edict_s
 	//================================
 
 	int			svflags;			// SVF_NOCLIENT, SVF_DEADMONSTER, SVF_MONSTER, etc
-	vec3_t		mins, maxs;
+	vec3_t		mins, maxs;			// Bounding Box
 	vec3_t		absmin, absmax, size;
 	solid_t		solid;
 	int			clipmask;

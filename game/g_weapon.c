@@ -131,7 +131,7 @@ fire_lead
 This is an internal support routine used for bullet/pellet based weapons.
 =================
 */
-static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int te_impact, int hspread, int vspread, int mod)
+static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick, int te_impact, int hspread, int vspread, int mod /* means of death*/)
 {
 	trace_t		tr;
 	vec3_t		dir;
@@ -142,6 +142,8 @@ static void fire_lead (edict_t *self, vec3_t start, vec3_t aimdir, int damage, i
 	vec3_t		water_start;
 	qboolean	water = false;
 	int			content_mask = MASK_SHOT | MASK_WATER;
+
+	if (!self) return;
 
 	tr = gi.trace (self->s.origin, NULL, NULL, start, self, MASK_SHOT);
 	if (!(tr.fraction < 1.0))
@@ -347,9 +349,11 @@ void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int spee
 	edict_t	*bolt;
 	trace_t	tr;
 
-	VectorNormalize (dir);
+	VectorNormalize (dir); // sets the magnitude to 1, keeping direction the same
 
 	bolt = G_Spawn();
+	if (!bolt) return; // check if an entity space is found
+
 	bolt->svflags = SVF_DEADMONSTER;
 	// yes, I know it looks weird that projectiles are deadmonsters
 	// what this means is that when prediction is used against the object
@@ -358,18 +362,18 @@ void fire_blaster (edict_t *self, vec3_t start, vec3_t dir, int damage, int spee
 	// is very jerky since you are predicted 'against' the shots.
 	VectorCopy (start, bolt->s.origin);
 	VectorCopy (start, bolt->s.old_origin);
-	vectoangles (dir, bolt->s.angles);
+	vectoangles (dir, bolt->s.angles); // directional vector -> yaw, pitch, roll
 	VectorScale (dir, speed, bolt->velocity);
 	bolt->movetype = MOVETYPE_FLYMISSILE;
 	bolt->clipmask = MASK_SHOT;
 	bolt->solid = SOLID_BBOX;
 	bolt->s.effects |= effect;
-	VectorClear (bolt->mins);
+	VectorClear (bolt->mins); // bolt is nothing more than a point moving through space
 	VectorClear (bolt->maxs);
 	bolt->s.modelindex = gi.modelindex ("models/objects/laser/tris.md2");
 	bolt->s.sound = gi.soundindex ("misc/lasfly.wav");
 	bolt->owner = self;
-	bolt->touch = blaster_touch;
+	bolt->touch = blaster_touch; // pointer to the function's memory address
 	bolt->nextthink = level.time + 2;
 	bolt->think = G_FreeEdict;
 	bolt->dmg = damage;
