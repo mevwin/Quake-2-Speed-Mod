@@ -788,9 +788,13 @@ void PM_CheckJump (void)
 		return;
 	}
 
-	// must wait for jump to be released
-	if (pm->s.pm_flags & PMF_JUMP_HELD)
+	// must wait for jump to be released (hover)
+	if (pm->s.pm_flags & PMF_JUMP_HELD) {
+		pml.velocity[0] = pml.velocity[0]/2.2;
+		pml.velocity[1] = pml.velocity[1]/2.2;
+		pml.velocity[2] = 240;
 		return;
+	}
 
 	if (pm->s.pm_type == PM_DEAD)
 		return;

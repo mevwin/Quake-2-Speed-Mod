@@ -899,36 +899,68 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
-void Cmd_TRight_f(edict_t* ent)
+static float nextright = 0;
+void Cmd_TRight_f(edict_t* ent, float currtime)
 {
-	vec3_t dir, right, vel;
-	double speed;
-
 	if ((!ent) || (!ent->client)) return;
-	
-	//gi.bprintf(PRINT_HIGH, "initial: x %f, y %f, z %f\n", ent->client->v_angle[0], ent->client->v_angle[1], ent->client->v_angle[2]);
-	//AngleVectors(ent->client->v_angle, NULL, right, NULL);
-	//fire_bfg(ent, ent->s.origin, right, 100, 100, 25);
-	//VectorSet(ent->client->v_angle, ent->client->v_angle[0], ent->client->v_angle[1] - 90, ent->client->v_angle[2]);
-	//gi.bprintf(PRINT_HIGH, "initial: roll %f, pitch %f, yaw %f\n", ent->s.angles[ROLL], ent->s.angles[PITCH], ent->s.angles[YAW]);
-	//gi.bprintf(PRINT_HIGH, "turned right: %f, %f, %f\n", ent->client->v_angle[0], ent->client->v_angle[1], ent->client->v_angle[2]);
 
-	
-	ent->client->ps.viewangles[YAW] = ent->client->ps.viewangles[YAW] - 90;
-	ent->client->v_angle[YAW] = ent->client->v_angle[YAW] - 90;
+	vec3_t right;
 
-	VectorCopy(ent->velocity, vel);
-	speed = sqrt( pow(vel[0], 2) + pow(vel[1], 2) + pow(vel[2], 2));
-	gi.bprintf(PRINT_HIGH, "vel: x %f y %f z %f\n", vel[0], vel[1], vel[2]);
-	gi.bprintf(PRINT_HIGH, "speed: %f\n", speed);
+	if (currtime <= nextright) {
+		return;
+	}
+
+	AngleVectors(ent->client->v_angle, right, NULL, NULL);
+	if (right[0] > 0 && right[1] < 0)
+		right[1] = abs(right[1]);
+	else if (right[0] < 0 && right[1] > 0)
+		right[0] = abs(right[0]);
+
+	VectorSet(ent->velocity, 2*right[1] * 350, -2*right[0] * 350, 0);
+	nextright = currtime + 4;
 }
 
-void Cmd_Teleport_f(edict_t* ent)
+static float nextleft = 0;
+void Cmd_TLeft_f(edict_t* ent, float currtime)
+{
+	if ((!ent) || (!ent->client)) return;
+
+	vec3_t left;
+
+	if (currtime <= nextleft) {
+		return;
+	}
+
+	AngleVectors(ent->client->v_angle, left, NULL, NULL);
+	if (left[0] > 0 && left[1] < 0)
+		left[1] = abs(left[1]);
+	else if (left[0] < 0 && left[1] > 0)
+		left[0] = abs(left[0]);
+
+	VectorSet(ent->velocity, -2 * left[1] * 350, 2 * left[0] * 350, 0);
+	nextleft = currtime + 4;
+}
+
+
+static float nexttelport = 0;
+void Cmd_Teleslide_f(edict_t* ent, float currtime)
 {
 	trace_t	tr;
 	vec3_t start, end, dir, forward;
 
 	if ((!ent) || (!ent->client)) return;
+
+	//slide
+	if (ent->client->ps.pmove.pm_flags & PMF_DUCKED) {
+		AngleVectors(ent->client->v_angle, forward, NULL, NULL);
+		VectorSet(ent->velocity, 2 * forward[0] * 350, 2 * forward[1] * 350, 0);
+		return;
+	}
+
+	//teleport
+	if (currtime <= nexttelport) {
+		return;
+	}
 
 	AngleVectors(ent->client->v_angle, forward, NULL, NULL);
 	VectorCopy(ent->s.origin, start);
@@ -937,15 +969,64 @@ void Cmd_Teleport_f(edict_t* ent)
 	
 	//gi.bprintf(PRINT_HIGH, "initial: x %f, y %f, z %f\nDirection: %f, %f, %f\n", start[0], start[1], start[2], dir[0], dir[1], dir[2]);
 
-	VectorSet(end, 200*dir[0] + start[0], 200*dir[1] + start[1], 100 * dir[2] + start[2]);
+	VectorSet(end, 300*dir[0] + start[0], 300*dir[1] + start[1], 300*dir[2] + start[2]);
 	tr = gi.trace(start, NULL, NULL, end, ent, MASK_PLAYERSOLID);
+	//gi.bprintf(PRINT_HIGH, "tr: %f\n", tr.fraction);
 	if (tr.fraction < 1.0)
 	{
-		VectorSet(end, start[0], start[1], start[2]);
+		if (tr.fraction < 0.55) {
+			VectorCopy(start, end);
+			VectorSet(ent->s.origin, end[0], end[1], end[2]);
+			return;
+		}
+		else 
+			VectorSet(end, tr.endpos[0] - (135 * dir[0]), tr.endpos[1] - (135 * dir[1]), tr.endpos[2] - (135 * dir[2]));
 	}
 	VectorSet(ent->s.origin, end[0], end[1], end[2]);
+	nexttelport = currtime + 5;
 	//gi.bprintf(PRINT_HIGH, "final: x %f, y %f, z %f\nDirection: %f, %f, %f\n", end[0], end[1], end[2], dir[0], dir[1], dir[2]);
 }
+
+static int jumpcount = 0;
+vec3_t ground;
+float vertdist;
+void Cmd_Jump_f(edict_t* ent)
+{
+	if ((!ent) || (!ent->client)) return;
+
+	if ( jumpcount == 0 && ent->velocity[2] == 0) {
+		VectorCopy(ent->s.origin, ground);
+		VectorSet(ent->velocity, ent->velocity[0], ent->velocity[1], 300);
+		jumpcount++;
+		return;
+	}
+
+	vertdist = ent->s.origin[2] - ground[2];
+	
+	if (jumpcount == 1 && vertdist == 0) {
+		jumpcount = 0;
+		VectorSet(ent->velocity, ent->velocity[0], ent->velocity[1], 300);
+		jumpcount++;
+		return;
+	}
+
+	if (jumpcount > 1) {
+		if (vertdist <= 0 || ent->velocity[2] == 0) {
+			vertdist = 0;
+			jumpcount = 0;
+		}
+		return;
+	}
+
+	//if (jumpcount == 1 && vertdist > 0)
+	VectorSet(ent->velocity, ent->velocity[0], ent->velocity[1], 300);
+	jumpcount++;
+
+	//gi.bprintf(PRINT_HIGH, "Vertical Distance: %f\n", vertdist);
+	//gi.bprintf(PRINT_HIGH, "Vertical Velocity: %f\n", ent->velocity[2]);
+	//gi.bprintf(PRINT_HIGH, "Jumpcount: %d\n", jumpcount);
+}
+
 
 /*
 =================
@@ -988,12 +1069,22 @@ void ClientCommand (edict_t *ent)
 	}
 	if (Q_stricmp(cmd, "turnright") == 0)
 	{
-		Cmd_TRight_f(ent);
+		Cmd_TRight_f(ent, level.time);
 		return;
 	}
-	if (Q_stricmp(cmd, "teleport") == 0)
+	if (Q_stricmp(cmd, "turnleft") == 0)
 	{
-		Cmd_Teleport_f(ent);
+		Cmd_TLeft_f(ent, level.time);
+		return;
+	}
+	if (Q_stricmp(cmd, "teleslide") == 0)
+	{
+		Cmd_Teleslide_f(ent, level.time);
+		return;
+	}
+	if (Q_stricmp(cmd, "jump") == 0)
+	{
+		Cmd_Jump_f(ent);
 		return;
 	}
 

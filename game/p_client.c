@@ -1575,8 +1575,15 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	int		i, j;
 	pmove_t	pm;
 
+	vec3_t dir, right, vel;
+	double speed;
+
 	level.current_entity = ent;
 	client = ent->client;
+
+	VectorCopy(ent->velocity, vel);
+	speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2) + pow(vel[2], 2));
+	gi.bprintf(PRINT_HIGH, "Current Speed: %f\nCurrent Time: %f\n", speed, level.time);
 
 	if (level.intermissiontime)
 	{
