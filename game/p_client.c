@@ -1745,6 +1745,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		// enemy freeze powerup
 
+
 		VectorCopy (pm.mins, ent->mins);
 		VectorCopy (pm.maxs, ent->maxs);
 
