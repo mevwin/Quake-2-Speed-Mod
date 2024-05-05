@@ -1115,5 +1115,7 @@ struct edict_s
 	float		nexttelport;
 	float		nextright;
 	float		nextleft;
+	int			laps;
+	float		nextlap;
 };
 

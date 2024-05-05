@@ -1017,6 +1017,17 @@ void Cmd_Jump_f(edict_t* ent)
 	jumpcount++;
 }
 
+void Cmd_FileWrite_f(edict_t* ent) {
+	FILE* f;
+	char msg[] = "Current Time:";
+	
+	f = fopen("times.cfg", "wb");
+	if (!f) 
+		gi.bprintf(PRINT_HIGH, "no file found");
+
+	fwrite(msg, sizeof(msg), 1, f);
+	fclose(f);
+}
 
 /*
 =================
@@ -1075,6 +1086,11 @@ void ClientCommand (edict_t *ent)
 	if (Q_stricmp(cmd, "jump") == 0)
 	{
 		Cmd_Jump_f(ent);
+		return;
+	}
+	if (Q_stricmp(cmd, "filewrite") == 0)
+	{
+		Cmd_FileWrite_f(ent);
 		return;
 	}
 

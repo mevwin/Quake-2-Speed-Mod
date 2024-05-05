@@ -359,8 +359,8 @@ qboolean SV_StepDirection (edict_t *ent, float yaw, float dist)
 	M_ChangeYaw (ent);
 	
 	yaw = yaw*M_PI*2 / 360;
-	move[0] = cos(yaw)*dist;
-	move[1] = sin(yaw)*dist;
+	move[0] = cos(yaw)*dist*3.8;
+	move[1] = sin(yaw)*dist*3.8;
 	move[2] = 0;
 
 	VectorCopy (ent->s.origin, oldorigin);

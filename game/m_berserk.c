@@ -164,12 +164,13 @@ void berserk_run (edict_t *self)
 		self->monsterinfo.currentmove = &berserk_move_stand;
 	else
 		self->monsterinfo.currentmove = &berserk_move_run1;
+		
 }
 
 
 void berserk_attack_spike (edict_t *self)
 {
-	static	vec3_t	aim = {MELEE_DISTANCE, 0, -24};
+	static	vec3_t	aim = {MELEE_DISTANCE+200, 0, -24};
 	fire_hit (self, aim, 90, 400);		//	Faster attack -- upwards and backwards
 }
 
@@ -181,10 +182,10 @@ void berserk_swing (edict_t *self)
 
 mframe_t berserk_frames_attack_spike [] =
 {
-		ai_charge, 0, NULL,
-		ai_charge, 0, NULL,
 		ai_charge, 0, berserk_swing,
 		ai_charge, 0, berserk_attack_spike,
+		ai_charge, 0, NULL,
+		ai_charge, 0, NULL,
 		ai_charge, 0, NULL,
 		ai_charge, 0, NULL,
 		ai_charge, 0, NULL,
@@ -203,10 +204,6 @@ void berserk_attack_club (edict_t *self)
 
 mframe_t berserk_frames_attack_club [] =
 {	
-	ai_charge, 0, NULL,
-	ai_charge, 0, NULL,
-	ai_charge, 0, NULL,
-	ai_charge, 0, NULL,
 	ai_charge, 0, berserk_swing,
 	ai_charge, 0, NULL,
 	ai_charge, 0, NULL,
@@ -214,7 +211,11 @@ mframe_t berserk_frames_attack_club [] =
 	ai_charge, 0, berserk_attack_club,
 	ai_charge, 0, NULL,
 	ai_charge, 0, NULL,
-	ai_charge, 0, NULL
+	ai_charge, 0, NULL,
+	ai_charge, 0, NULL,
+	ai_charge, 0, NULL,
+	ai_charge, 0, NULL,
+	ai_charge, 0, NULL,
 };
 mmove_t berserk_move_attack_club = {FRAME_att_c9, FRAME_att_c20, berserk_frames_attack_club, berserk_run};
 
@@ -227,14 +228,14 @@ void berserk_strike (edict_t *self)
 
 mframe_t berserk_frames_attack_strike [] =
 {
-	ai_move, 0, NULL,
-	ai_move, 0, NULL,
-	ai_move, 0, NULL,
 	ai_move, 0, berserk_swing,
 	ai_move, 0, NULL,
 	ai_move, 0, NULL,
 	ai_move, 0, NULL,
 	ai_move, 0, berserk_strike,
+	ai_move, 0, NULL,
+	ai_move, 0, NULL,
+	ai_move, 0, NULL,
 	ai_move, 0, NULL,
 	ai_move, 0, NULL,
 	ai_move, 0, NULL,

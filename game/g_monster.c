@@ -552,7 +552,7 @@ qboolean monster_start (edict_t *self)
 	self->nextthink = level.time + FRAMETIME;
 	self->svflags |= SVF_MONSTER;
 	self->s.renderfx |= RF_FRAMELERP;
-	self->takedamage = DAMAGE_AIM;
+	self->takedamage = DAMAGE_NO;			// enemy cannot take damage in mod
 	self->air_finished = level.time + 12;
 	self->use = monster_use;
 	self->max_health = self->health;
