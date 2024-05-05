@@ -40,7 +40,7 @@ Changes:
     - Health        : Survive a hit from Berserker
     - Shotgun       : Superjump (uses 1 shell)
     - Super Shotgun : Noclip (uses 2 shells) (limited time of effect)
-    - 
+    - Grenade       : Invincibility
 - Berserker:
     - Immune to all damage
     - Will constantly chase player
