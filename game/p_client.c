@@ -616,15 +616,15 @@ void InitClientPersistant (gclient_t *client)
 
 	client->pers.weapon = item;
 
-	client->pers.health			= 100;
+	client->pers.health			= 10;
 	client->pers.max_health		= 100;
 
-	client->pers.max_bullets	= 200;
-	client->pers.max_shells		= 100;
-	client->pers.max_rockets	= 50;
-	client->pers.max_grenades	= 50;
-	client->pers.max_cells		= 200;
-	client->pers.max_slugs		= 50;
+	client->pers.max_bullets	= 1;
+	client->pers.max_shells		= 2;
+	client->pers.max_rockets	= 1;
+	client->pers.max_grenades	= 1;
+	client->pers.max_cells		= 1;
+	client->pers.max_slugs		= 1;
 
 	client->pers.connected = true;
 }
@@ -1574,16 +1574,86 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	edict_t	*other;
 	int		i, j;
 	pmove_t	pm;
+	char msg;
 
 	vec3_t dir, right, vel;
 	double speed;
+	float cool1 = 0;
+	float cool2 = 0;
+	float cool3 = 0;
 
 	level.current_entity = ent;
 	client = ent->client;
 
+
+	// UI and cooldown timers
 	VectorCopy(ent->velocity, vel);
-	speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2) + pow(vel[2], 2));
-	gi.bprintf(PRINT_HIGH, "Current Speed: %f\nCurrent Time: %f\n", speed, level.time);
+	speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2));
+
+	// 3 cooldowns
+	if (ent->nexttelport > level.time && ent->nextright > level.time && ent->nextleft > level.time) {
+		cool1 = ent->nexttelport - level.time;
+		cool2 = ent->nextright - level.time;
+		cool3 = ent->nextleft - level.time;
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nRight Dodge Cooldown: %f\nLeft Dodge Cooldown: %f\nNoclip Powerup %f", speed, level.time, cool1, cool2, cool3, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nRight Dodge Cooldown: %f\nLeft Dodge Cooldown: %f", speed, level.time, cool1, cool2, cool3);
+	}
+
+	// 2 cooldowns
+	else if (ent->nexttelport > level.time && ent->nextright > level.time && ent->nextleft <= level.time) {
+		cool1 = ent->nexttelport - level.time;
+		cool2 = ent->nextright - level.time;
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nRight Dodge Cooldown: %f\nNoclip Powerup %f", speed, level.time, cool1, cool2, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nRight Dodge Cooldown: %f", speed, level.time, cool1, cool2);
+	}
+	else if (ent->nexttelport > level.time && ent->nextright <= level.time && ent->nextleft > level.time) {
+		cool1 = ent->nexttelport - level.time;
+		cool2 = ent->nextleft - level.time;
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nLeft Dodge Cooldown: %f\nNoclip Powerup %f", speed, level.time, cool1, cool2, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nLeft Dodge Cooldown: %f", speed, level.time, cool1, cool2);
+	}
+	else if (ent->nexttelport <= level.time && ent->nextright > level.time && ent->nextleft > level.time) {
+		cool1 = ent->nextright - level.time;
+		cool2 = ent->nextleft - level.time;
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nRight Dodge Cooldown: %f\nLeft Dodge Cooldown: %f\nNoclip Powerup %f", speed, level.time, cool1, cool2, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nRight Dodge Cooldown: %f\nLeft Dodge Cooldown: %f", speed, level.time, cool1, cool2);
+	}
+
+	// 1 cooldown
+	else if (ent->nexttelport > level.time && ent->nextright <= level.time && ent->nextleft <= level.time) {
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f\nNoclip Powerup %f", speed, level.time, ent->nexttelport - level.time, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nTeleport Cooldown: %f", speed, level.time, ent->nexttelport - level.time);
+	}
+	else if (ent->nexttelport <= level.time && ent->nextright > level.time && ent->nextleft <= level.time) {
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nRight Cooldown: %f\nNoclip Powerup %f", speed, level.time, ent->nextright - level.time, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nRight Cooldown: %f", speed, level.time, ent->nextright - level.time);
+	}
+	else if (ent->nexttelport <= level.time && ent->nextright <= level.time && ent->nextleft > level.time) {
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nLeft Cooldown: %f\nNoclip Powerup %f", speed, level.time, ent->nextleft - level.time, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nLeft Cooldown: %f", speed, level.time, ent->nextleft - level.time);
+	}
+	// no cooldowns
+	else {
+		if (ent->nocliptimer > level.time)
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f\nNoclip Powerup %f", speed, level.time, ent->nocliptimer - level.time);
+		else
+			gi.centerprintf(ent, "Forward Speed: %f\nCurrent Time: %f", speed, level.time);
+	}
+	// gi.centerprintf(ent, msg, speed, level.time, cool1, cool2, cool3);
 
 	if (level.intermissiontime)
 	{
@@ -1647,8 +1717,25 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		for (i=0 ; i<3 ; i++)
 		{
 			ent->s.origin[i] = pm.s.origin[i]*0.125;
-			ent->velocity[i] = pm.s.velocity[i]*0.1264;
+			if (ent->client->ps.stats[STAT_ARMOR] > 0) // temporary speed boost
+				ent->velocity[i] = pm.s.velocity[i] * 0.1275;
+			else
+				ent->velocity[i] = pm.s.velocity[i] * 0.1264;
 		}
+
+		if (ent->health < 10) ent->health = 10;
+
+		// temporary speed boost
+		if (ent->client->ps.stats[STAT_ARMOR] > 0) 
+			T_Damage(ent, world, world, vec3_origin, ent->s.origin, vec3_origin, 1, 0, 0, MOD_HIT);
+
+		// free hit
+		if (ent->health > 10) ent->health = 100;
+
+		// noclip powerup removal
+		if (ent->movetype != MOVETYPE_WALK && ent->nocliptimer <= level.time)
+			Cmd_Noclip_f(ent);
+
 
 		VectorCopy (pm.mins, ent->mins);
 		VectorCopy (pm.maxs, ent->maxs);

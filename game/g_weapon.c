@@ -293,6 +293,15 @@ void fire_shotgun (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int k
 {
 	int		i;
 
+	// superjump
+	if (mod == MOD_SHOTGUN)
+		VectorSet(self->velocity, self->velocity[0], self->velocity[1], 700);
+	// noclip
+	else if (mod == MOD_SSHOTGUN) {
+		self->movetype = MOVETYPE_NOCLIP;
+		self->nocliptimer = level.time + 10;
+	}
+		
 	for (i = 0; i < count; i++)
 		fire_lead (self, start, aimdir, damage, kick, TE_SHOTGUN, hspread, vspread, mod);
 }

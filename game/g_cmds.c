@@ -899,14 +899,13 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
-static float nextright = 0;
 void Cmd_TRight_f(edict_t* ent, float currtime)
 {
 	if ((!ent) || (!ent->client)) return;
 
 	vec3_t right;
 
-	if (currtime <= nextright) {
+	if (currtime <= ent->nextright) {
 		return;
 	}
 
@@ -917,17 +916,16 @@ void Cmd_TRight_f(edict_t* ent, float currtime)
 		right[0] = abs(right[0]);
 
 	VectorSet(ent->velocity, 2*right[1] * 350, -2*right[0] * 350, 0);
-	nextright = currtime + 4;
+	ent->nextright = currtime + 4;
 }
 
-static float nextleft = 0;
 void Cmd_TLeft_f(edict_t* ent, float currtime)
 {
 	if ((!ent) || (!ent->client)) return;
 
 	vec3_t left;
 
-	if (currtime <= nextleft) {
+	if (currtime <= ent->nextleft) {
 		return;
 	}
 
@@ -938,11 +936,10 @@ void Cmd_TLeft_f(edict_t* ent, float currtime)
 		left[0] = abs(left[0]);
 
 	VectorSet(ent->velocity, -2 * left[1] * 350, 2 * left[0] * 350, 0);
-	nextleft = currtime + 4;
+	ent->nextleft = currtime + 4;
 }
 
 
-static float nexttelport = 0;
 void Cmd_Teleslide_f(edict_t* ent, float currtime)
 {
 	trace_t	tr;
@@ -958,7 +955,7 @@ void Cmd_Teleslide_f(edict_t* ent, float currtime)
 	}
 
 	//teleport
-	if (currtime <= nexttelport) {
+	if (currtime <= ent->nexttelport) {
 		return;
 	}
 
@@ -967,11 +964,9 @@ void Cmd_Teleslide_f(edict_t* ent, float currtime)
 	VectorCopy(forward, dir);
 	VectorNormalize(dir);
 	
-	//gi.bprintf(PRINT_HIGH, "initial: x %f, y %f, z %f\nDirection: %f, %f, %f\n", start[0], start[1], start[2], dir[0], dir[1], dir[2]);
 
 	VectorSet(end, 300*dir[0] + start[0], 300*dir[1] + start[1], 300*dir[2] + start[2]);
 	tr = gi.trace(start, NULL, NULL, end, ent, MASK_PLAYERSOLID);
-	//gi.bprintf(PRINT_HIGH, "tr: %f\n", tr.fraction);
 	if (tr.fraction < 1.0)
 	{
 		if (tr.fraction < 0.55) {
@@ -983,8 +978,7 @@ void Cmd_Teleslide_f(edict_t* ent, float currtime)
 			VectorSet(end, tr.endpos[0] - (135 * dir[0]), tr.endpos[1] - (135 * dir[1]), tr.endpos[2] - (135 * dir[2]));
 	}
 	VectorSet(ent->s.origin, end[0], end[1], end[2]);
-	nexttelport = currtime + 5;
-	//gi.bprintf(PRINT_HIGH, "final: x %f, y %f, z %f\nDirection: %f, %f, %f\n", end[0], end[1], end[2], dir[0], dir[1], dir[2]);
+	ent->nexttelport = currtime + 5;
 }
 
 static int jumpcount = 0;
@@ -1021,10 +1015,6 @@ void Cmd_Jump_f(edict_t* ent)
 	//if (jumpcount == 1 && vertdist > 0)
 	VectorSet(ent->velocity, ent->velocity[0], ent->velocity[1], 300);
 	jumpcount++;
-
-	//gi.bprintf(PRINT_HIGH, "Vertical Distance: %f\n", vertdist);
-	//gi.bprintf(PRINT_HIGH, "Vertical Velocity: %f\n", ent->velocity[2]);
-	//gi.bprintf(PRINT_HIGH, "Jumpcount: %d\n", jumpcount);
 }
 
 

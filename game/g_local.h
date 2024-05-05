@@ -1000,7 +1000,7 @@ struct edict_s
 
 	char		*model;
 	float		freetime;			// sv.time when the object was freed
-	
+
 	//
 	// only used locally in game, not by server
 	//
@@ -1109,5 +1109,11 @@ struct edict_s
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
+
+	// movement/powerup cooldowns
+	float		nocliptimer;
+	float		nexttelport;
+	float		nextright;
+	float		nextleft;
 };
 

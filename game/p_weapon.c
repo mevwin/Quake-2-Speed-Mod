@@ -138,7 +138,7 @@ qboolean Pickup_Weapon (edict_t *ent, edict_t *other)
 		if ( (int)dmflags->value & DF_INFINITE_AMMO )
 			Add_Ammo (other, ammo, 1000);
 		else
-			Add_Ammo (other, ammo, ammo->quantity);
+			Add_Ammo (other, ammo, 2); // changed to 2 for powerups effect
 
 		if (! (ent->spawnflags & DROPPED_PLAYER_ITEM) )
 		{
