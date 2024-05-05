@@ -170,6 +170,7 @@ void berserk_run (edict_t *self)
 
 void berserk_attack_spike (edict_t *self)
 {
+	if ((self->enemy->flags & FL_NOTARGET)) return;
 	static	vec3_t	aim = {MELEE_DISTANCE+200, 0, -24};
 	fire_hit (self, aim, 90, 400);		//	Faster attack -- upwards and backwards
 }
@@ -197,7 +198,7 @@ mmove_t berserk_move_attack_spike = {FRAME_att_c1, FRAME_att_c8, berserk_frames_
 void berserk_attack_club (edict_t *self)
 {
 	vec3_t	aim;
-
+	if ((self->enemy->flags & FL_NOTARGET)) return;
 	VectorSet (aim, MELEE_DISTANCE, self->mins[0], -4);
 	fire_hit (self, aim, 90, 400);		// Slower attack
 }

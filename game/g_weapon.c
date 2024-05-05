@@ -415,6 +415,8 @@ static void Grenade_Explode (edict_t *ent)
 
 	if (ent->owner->client) {
 		PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
+		Cmd_Notarget_f(ent->owner);
+		ent->owner->client->grenade_blew_up = true;
 	}
 		
 

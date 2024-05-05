@@ -1568,23 +1568,24 @@ This will be called once for each client frame, which will
 usually be a couple times for each server frame.
 ==============
 */
+float grentimer = 0;
 void ClientThink (edict_t *ent, usercmd_t *ucmd)
 {
 	gclient_t	*client;
 	edict_t	*other;
 	int		i, j;
 	pmove_t	pm;
-	qboolean lapcheck = true;
 
 	vec3_t dir, right, vel;
 	double speed;
 	float cool1 = 0;
 	float cool2 = 0;
 	float cool3 = 0;
-
+	
 	level.current_entity = ent;
 	client = ent->client;
 
+	
 	// UI and cooldown timers
 	VectorCopy(ent->velocity, vel);
 	speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2));
@@ -1652,6 +1653,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		else
 			gi.centerprintf(ent, "Forward Speed: %d\nCurrent Time: %d\nLaps: %d", (int) speed, (int) level.time, ent->laps);
 	}
+	
 
 	if (level.time == 10.0) { //initial lap
 		ent->laps = 1;
@@ -1727,7 +1729,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			if (ent->client->ps.stats[STAT_ARMOR] > 0) // temporary speed boost
 				ent->velocity[i] = pm.s.velocity[i] * 0.1275;
 			else
-				ent->velocity[i] = pm.s.velocity[i] * 0.1264;
+				ent->velocity[i] = pm.s.velocity[i] * 0.1264; // enhanced acceleration
 		}
 
 		if (ent->health < 10) ent->health = 10;
@@ -1743,9 +1745,18 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		if (ent->movetype != MOVETYPE_WALK && ent->nocliptimer <= level.time)
 			Cmd_Noclip_f(ent);
 
-		// enemy freeze powerup
-
-
+		// invincibility powerup
+		if (client->grenade_blew_up) {
+			grentimer = level.time + 5;
+			gi.centerprintf(client, "Invince");
+			client->grenade_blew_up = false;
+		}
+		if ((ent->flags & FL_NOTARGET) && grentimer <= level.time && grentimer != 0) {
+			gi.centerprintf(client, "No invince");
+			Cmd_Notarget_f(ent);
+			grentimer = 0;
+		}
+		
 		VectorCopy (pm.mins, ent->mins);
 		VectorCopy (pm.maxs, ent->maxs);
 
