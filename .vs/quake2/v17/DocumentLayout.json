@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\vielg\\quake2-full\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\vielg\\quake2-full\\game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\vielg\\quake2-full\\game\\g_utils.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_utils.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F575AF4A-7BDD-47F6-B65F-F43C514E0069}|quake2.vcxproj|C:\\Users\\vielg\\quake2-full\\qcommon\\cvar.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F575AF4A-7BDD-47F6-B65F-F43C514E0069}|quake2.vcxproj|solutionrelative:qcommon\\cvar.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\vielg\\quake2-full\\game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F575AF4A-7BDD-47F6-B65F-F43C514E0069}|quake2.vcxproj|C:\\Users\\vielg\\quake2-full\\qcommon\\files.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -53,11 +53,11 @@
       "DocumentGroups": [
         {
           "DockedHeight": 275,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "g_utils.c",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\game\\g_utils.c",
               "RelativeDocumentMoniker": "game\\g_utils.c",
@@ -71,7 +71,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "p_client.c",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\game\\p_client.c",
               "RelativeDocumentMoniker": "game\\p_client.c",
@@ -85,7 +85,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "p_hud.c",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\game\\p_hud.c",
               "RelativeDocumentMoniker": "game\\p_hud.c",
@@ -94,12 +94,11 @@
               "ViewState": "AQIAADIBAAAAAAAAAAAAADgBAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-04-27T18:27:08.809Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "g_cmds.c",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\game\\g_cmds.c",
               "RelativeDocumentMoniker": "game\\g_cmds.c",
@@ -108,8 +107,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUEAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-04-23T14:23:06.116Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -133,7 +131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "cvar.c",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\qcommon\\cvar.c",
               "RelativeDocumentMoniker": "qcommon\\cvar.c",
@@ -141,12 +139,11 @@
               "RelativeToolTip": "qcommon\\cvar.c",
               "ViewState": "AQIAANcAAAAAAAAAAAAiwOEAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-05-06T01:08:40.326Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-06T01:08:40.326Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "qcommon.h",
               "DocumentMoniker": "C:\\Users\\vielg\\quake2-full\\qcommon\\qcommon.h",
               "RelativeDocumentMoniker": "qcommon\\qcommon.h",
@@ -154,8 +151,7 @@
               "RelativeToolTip": "qcommon\\qcommon.h",
               "ViewState": "AQIAABAAAAAAAAAAAAAWwBsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-05-06T00:35:37.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-06T00:35:37.749Z"
             },
             {
               "$type": "Document",

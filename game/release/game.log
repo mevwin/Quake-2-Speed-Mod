@@ -1,37 +1,7 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  p_client.c
-C:\Users\vielg\quake2-full\game\p_client.c(72,42): warning C4100: 'self': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(181,66): warning C4100: 'damage': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(181,56): warning C4100: 'kick': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(181,43): warning C4100: 'other': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(181,28): warning C4100: 'self': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(213,46): warning C4100: 'inflictor': unreferenced formal parameter
-  p_hud.c
-C:\Users\vielg\quake2-full\game\p_client.c(594,6): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(597,2): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(600,6): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(605,3): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _itoa. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(607,3): warning C4996: 'itoa': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _itoa. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(614,3): warning C4996: 'gcvt': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _gcvt. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(616,3): warning C4996: 'gcvt': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _gcvt. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(503,91): warning C4100: 'point': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(959,89): warning C4100: 'point': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(959,60): warning C4100: 'attacker': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(959,40): warning C4100: 'inflictor': unreferenced formal parameter
-C:\Users\vielg\quake2-full\game\p_client.c(1399,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(1404,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(1444,2): warning C4996: 'strncpy': This function or variable may be unsafe. Consider using strncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_client.c(1777,4): warning C4013: 'Cmd_Noclip_f' undefined; assuming extern returning int
-C:\Users\vielg\quake2-full\game\p_client.c(1782,20): warning C4133: 'function': incompatible types - from 'gclient_t *' to 'edict_t *'
-C:\Users\vielg\quake2-full\game\p_client.c(1786,20): warning C4133: 'function': incompatible types - from 'gclient_t *' to 'edict_t *'
-C:\Users\vielg\quake2-full\game\p_client.c(1787,4): warning C4013: 'Cmd_Notarget_f' undefined; assuming extern returning int
-C:\Users\vielg\quake2-full\game\p_client.c(1607,9): warning C4101: 'dir': unreferenced local variable
-C:\Users\vielg\quake2-full\game\p_client.c(1607,14): warning C4101: 'right': unreferenced local variable
-C:\Users\vielg\quake2-full\game\p_hud.c(234,4): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_hud.c(250,3): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_hud.c(313,6): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\vielg\quake2-full\game\p_hud.c(316,2): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  Generating Code...
-C:\Users\vielg\quake2-full\game\p_hud.c(436,1): warning C4701: potentially uninitialized local variable 'cells' used
+  g_utils.c
+C:\Users\vielg\quake2-full\game\g_utils.c(396,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\vielg\quake2-full\game\g_utils.c(215,1): warning C4706: assignment within conditional expression
+C:\Users\vielg\quake2-full\game\g_utils.c(232,1): warning C4706: assignment within conditional expression
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Program Files (x86)\Steam\steamapps\common\Quake 2\Q2_Speed\gamex86.dll
