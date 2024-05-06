@@ -5,8 +5,9 @@ movement mechanics, power-ups, and modifications to player movement and
 enemy behavior/stats.
 
 Installation:
-Download q2modfolder.zip from Releases, extract it, and move the folder 
+1) Download Q2_Speed.zip from Releases, extract it, and move the folder 
 (Q2_Speed) to your base folder for Quake 2.
+2) Move highscores.txt from Q2_Speed to the base folder for Quake 2.
 
 Objective: 
 Survive for as long as you can.  Surviving for 10 seconds counts as one full 

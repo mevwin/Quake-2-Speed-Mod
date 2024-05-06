@@ -591,13 +591,13 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 			gi.sound (self, CHAN_VOICE, gi.soundindex(va("*death%i.wav", (rand()%4)+1)), 1, ATTN_NORM, 0);
 		}
 	}
-	g = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "r");
+	g = fopen("highscores.txt", "r");
 	int laps;
 	float time;
 	fscanf(g, "%d %f", &laps, &time);
 	fclose(g);
 
-	f = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "w");
+	f = fopen("highscores.txt", "w");
 	
 
 	char flaps[2];

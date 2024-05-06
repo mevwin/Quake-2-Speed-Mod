@@ -310,7 +310,7 @@ void HelpComputer (edict_t *ent)
 	char	*sk;
 
 	FILE* g;
-	g = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "r");
+	g = fopen("highscores.txt", "r");
 	int laps;
 	float time;
 	fscanf(g, "%d %f", &laps, &time);
