@@ -309,6 +309,13 @@ void HelpComputer (edict_t *ent)
 	char	string[1024];
 	char	*sk;
 
+	FILE* g;
+	g = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "r");
+	int laps;
+	float time;
+	fscanf(g, "%d %f", &laps, &time);
+	fclose(g);
+
 	if (skill->value == 0)
 		sk = "easy";
 	else if (skill->value == 1)
@@ -325,15 +332,16 @@ void HelpComputer (edict_t *ent)
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
 		"xv 0 yv 54 cstring2 \"%s\" "		// help 1
 		"xv 0 yv 110 cstring2 \"%s\" "		// help 2
-		"xv 50 yv 164 string2 \" kills     laps    secrets\" "
-		"xv 50 yv 172 string2 \"%3i/%3i     %i       %i/%i\" ", 
+		"xv 50 yv 164 string2 \" laps   high score best time\" "
+		"xv 50 yv 172 string2 \"  %i         %i	          %i\" ", 
 		sk,
 		level.level_name,
-		"RUN FROM THE INVINCIBLE BERSERKER!\nSURVIVE AS LONG AS YOU CAN\nONE LAP = 1:30",
+		"RUN FROM THE INVINCIBLE BERSERKER!\nSURVIVE AS LONG AS YOU CAN\nONE LAP = 10 sec",
 		"ABILITIES:\n CROUCH SLIDE, SIDE DODGES, LEVITATE,\nDOUBLE JUMP, FORWARD BLINK",
-		level.killed_monsters, level.total_monsters, 
-		ent->laps,
-		level.found_secrets, level.total_secrets);
+		ent->laps, 
+		laps,
+		(int) time
+	);
 
 	gi.WriteByte (svc_layout);
 	gi.WriteString (string);

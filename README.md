@@ -56,6 +56,7 @@ Changes:
         - laps completed
         - current player speed
         - ability cooldowns
-        - Noclip duration
+        - Noclip/Invincibilty duration
     - Game will save highest lap count and time completed in a txt file
-        - will be visible when game is opened again in Help Screen
+        - will be visible when game is opened again in Help Screen starting
+          a new run

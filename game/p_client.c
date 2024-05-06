@@ -19,6 +19,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 #include "g_local.h"
 #include "m_player.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void ClientUserinfoChanged (edict_t *ent, char *userinfo);
 
@@ -501,6 +503,7 @@ player_die
 void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damage, vec3_t point)
 {
 	int		n;
+	FILE*	f, *g;
 
 	VectorClear (self->avelocity);
 
@@ -588,7 +591,32 @@ void player_die (edict_t *self, edict_t *inflictor, edict_t *attacker, int damag
 			gi.sound (self, CHAN_VOICE, gi.soundindex(va("*death%i.wav", (rand()%4)+1)), 1, ATTN_NORM, 0);
 		}
 	}
+	g = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "r");
+	int laps;
+	float time;
+	fscanf(g, "%d %f", &laps, &time);
+	fclose(g);
 
+	f = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\Q2_Speed\\highscores.txt", "w");
+	
+
+	char flaps[2];
+	if (self->laps > laps)
+		itoa(self->laps, flaps, 10); 
+	else
+		itoa(laps, flaps, 10);
+	fputs(flaps, f);
+
+	fputs(" ", f);
+	
+	char ftime[8];
+	if (level.time > time)
+		gcvt((double) level.time, 4, ftime);
+	else
+		gcvt((double) time, 4, ftime);
+	fputs(ftime, f);
+
+	fclose(f);
 	self->deadflag = DEAD_DEAD;
 
 	gi.linkentity (self);
@@ -1585,13 +1613,17 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	level.current_entity = ent;
 	client = ent->client;
 
-	
+
 	// UI and cooldown timers
 	VectorCopy(ent->velocity, vel);
 	speed = sqrt(pow(vel[0], 2) + pow(vel[1], 2));
 
+	// invinciblity ui overtakes all others
+	if (ent->flags & FL_NOTARGET)
+		gi.centerprintf(ent, "INVINCIBILITY: %d", (int) (grentimer - level.time));
+	
 	// 3 cooldowns
-	if (ent->nexttelport > level.time && ent->nextright > level.time && ent->nextleft > level.time) {
+	else if (ent->nexttelport > level.time && ent->nextright > level.time && ent->nextleft > level.time) {
 		cool1 = ent->nexttelport - level.time;
 		cool2 = ent->nextright - level.time;
 		cool3 = ent->nextleft - level.time;
@@ -1653,7 +1685,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		else
 			gi.centerprintf(ent, "Forward Speed: %d\nCurrent Time: %d\nLaps: %d", (int) speed, (int) level.time, ent->laps);
 	}
-	
+
 
 	if (level.time == 10.0) { //initial lap
 		ent->laps = 1;
@@ -1731,7 +1763,6 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			else
 				ent->velocity[i] = pm.s.velocity[i] * 0.1264; // enhanced acceleration
 		}
-
 		if (ent->health < 10) ent->health = 10;
 
 		// temporary speed boost
